@@ -24,6 +24,3 @@ native-tls = { version = "0.2", optional = true }
 rustls-crate = { package = "rustls", version = "0.20", optional = true }
 webpki-roots = { version = "0.22", optional = true }
 
-[features]
-tls = ["native-tls"]
-rustls = ["rustls-crate", "webpki-roots"]

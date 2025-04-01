@@ -1,6 +1,6 @@
 [package]
 name = "qoollo-logstash-rs"
-version = "0.3.2"
+version = "0.3.3"
 description = "Logstash sender"
 repository = "https://github.com/qoollo/rust-log4rs-logstash"
 homepage = "https://github.com/qoollo/rust-log4rs-logstash"

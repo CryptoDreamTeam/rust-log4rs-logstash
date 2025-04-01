@@ -19,7 +19,7 @@ log4rs = "1"
 log = "0.4"
 anyhow = "1"
 serde = { version = "1", features = ["derive"] }
-qoollo-logstash-rs = { version = "0.2.0", path = "../logstash-rs" }
+qoollo-logstash-rs = { path = "../logstash-rs",  version = "0.3", registry = "cryptolp" }
 humantime-serde = "1"
 serde_json = "1"
 

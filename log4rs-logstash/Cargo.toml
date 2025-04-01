@@ -11,6 +11,8 @@ license = "MIT"
 authors = ["Qoollo", "Vladimir Stepanenko <vovac12@gmail.com>"]
 edition = "2018"
 readme = "README.md"
+publish.workspace = true
+
 
 [dependencies]
 log4rs = "1"

@@ -1,6 +1,6 @@
 [package]
 name = "qoollo-log4rs-logstash"
-version = "0.2.0"
+version = "0.3.0"
 description = "Logstash appender for log4rs"
 repository = "https://github.com/qoollo/rust-log4rs-logstash"
 homepage = "https://github.com/qoollo/rust-log4rs-logstash"

@@ -25,3 +25,7 @@ serde_json = "1"
 
 [dev-dependencies]
 signal-hook = "0.3"
+
+[features]
+tls = ["qoollo-logstash-rs/tls"]
+rustls = ["qoollo-logstash-rs/rustls"]

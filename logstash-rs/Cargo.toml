@@ -1,6 +1,6 @@
 [package]
 name = "qoollo-logstash-rs"
-version = "0.3.3"
+version = "0.3.4"
 description = "Logstash sender"
 repository = "https://github.com/qoollo/rust-log4rs-logstash"
 homepage = "https://github.com/qoollo/rust-log4rs-logstash"
@@ -23,7 +23,3 @@ thiserror = "1.0"
 native-tls = { version = "0.2", optional = true }
 rustls-crate = { package = "rustls", version = "0.20", optional = true }
 webpki-roots = { version = "0.22", optional = true }
-
-[features]
-tls = ["native-tls"]
-rustls = ["rustls-crate", "webpki-roots"]

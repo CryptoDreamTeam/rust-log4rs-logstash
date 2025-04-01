@@ -1,2 +1,5 @@
 [workspace]
 members = ["log4rs-logstash", "logstash-rs"]
+
+[workspace.package]
+publish = ["cryptolp"]

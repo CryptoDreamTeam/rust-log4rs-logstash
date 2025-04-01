@@ -83,55 +83,7 @@ impl AdvancedTcpStream {
         Ok(Box::new(self.create_connection()?))
     }
 
-    #[cfg(all(feature = "tls", feature = "rustls"))]
-    fn create_tls_connection(&self) -> Result<Stream> {
-        compile_error!("Select one of 'tls' or 'rustls' feature");
-        unreachable!();
-    }
 
-    #[cfg(all(feature = "tls", not(feature = "rustls")))]
-    fn create_tls_connection(&self) -> Result<Stream> {
-        use native_tls::HandshakeError;
-        let conn = native_tls::TlsConnector::new()?;
-        let stream = self.create_connection()?;
-        let mut stream = conn.connect(self.hostname.as_str(), stream);
-        while let Err(err) = stream {
-            match err {
-                HandshakeError::Failure(err) => return Err(err.into()),
-                HandshakeError::WouldBlock(block) => {
-                    stream = block.handshake();
-                }
-            }
-        }
-        Ok(Box::new(stream.expect("handshake completed")))
-    }
-
-    #[cfg(all(not(feature = "tls"), feature = "rustls"))]
-    fn create_tls_connection(&self) -> Result<Stream> {
-        use std::convert::TryInto;
-        use std::sync::Arc;
-        let mut root_store = rustls_crate::RootCertStore::empty();
-        root_store.add_server_trust_anchors(webpki_roots::TLS_SERVER_ROOTS.0.iter().map(|ta| {
-            rustls_crate::OwnedTrustAnchor::from_subject_spki_name_constraints(
-                ta.subject,
-                ta.spki,
-                ta.name_constraints,
-            )
-        }));
-        let config = rustls_crate::ClientConfig::builder()
-            .with_safe_defaults()
-            .with_root_certificates(root_store)
-            .with_no_client_auth();
-        let session = rustls_crate::ClientConnection::new(
-            Arc::new(config),
-            self.hostname.as_str().try_into()?,
-        )?;
-        let stream = self.create_connection()?;
-        let stream = rustls_crate::StreamOwned::new(session, stream);
-        Ok(Box::new(stream))
-    }
-
-    #[cfg(all(not(feature = "tls"), not(feature = "rustls")))]
     fn create_tls_connection(&self) -> Result<Stream> {
         panic!("TLS is not supported. Please enable 'tls' feature")
     }
